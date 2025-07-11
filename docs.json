@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "VennWL-iOS Documentation",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -17,39 +17,112 @@
             "group": "Get Started",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "getting-started/prerequisites",
+              "getting-started/setup",
+              "getting-started/running-the-app",
+              "getting-started/adding-a-brand"
             ]
           },
           {
-            "group": "Essentials",
+            "group": "Core Concepts",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "core/white-label-system",
+              "core/modular-component-system",
+              "core/server-driven-ui",
+              "core/ci-cd-automation",
+              "core/localization"
             ]
           }
         ]
       },
       {
-        "tab": "API Reference",
+        "tab": "Architecture",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "Overview",
             "pages": [
-              "api-reference/introduction"
+              "architecture/overview",
+              "architecture/tech-stack",
+              "architecture/mvvm",
+              "architecture/dependency-injection"
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "Patterns & Practices",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "patterns/services-networking",
+              "patterns/error-handling",
+              "patterns/legacy-vs-modern"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Modules",
+        "groups": [
+          {
+            "group": "Dynamic Modules",
+            "pages": [
+              "modules/overview",
+              "modules/supported-modules",
+              "modules/adding-a-module"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Brand Customization",
+        "groups": [
+          {
+            "group": "Branding",
+            "pages": [
+              "branding/target-resources",
+              "branding/tuist-config",
+              "branding/fastlane-circleci"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Developer Reference",
+        "groups": [
+          {
+            "group": "Mechanisms",
+            "pages": [
+              "reference/authentication",
+              "reference/data-fetching",
+              "reference/notification-handling",
+              "reference/analytics-tracking"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "reference/debugging",
+              "reference/testing",
+              "reference/static-analysis",
+              "reference/performance"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/key-classes",
+              "reference/glossary",
+              "reference/faq"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Contributing",
+        "groups": [
+          {
+            "group": "Contributing",
+            "pages": [
+              "contributing/code-style",
+              "contributing/pr-process",
+              "contributing/team-contacts"
             ]
           }
         ]
@@ -58,19 +131,14 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "GitHub",
+          "href": "https://github.com/venn-apps/VennWL-iOS",
+          "icon": "github"
         },
         {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
+          "anchor": "Slack",
+          "href": "https://yourcompany.slack.com",
           "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
         }
       ]
     }
@@ -83,20 +151,20 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:ios-support@vennapps.com"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://dashboard.vennapps.com"
     }
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/vennapps",
+      "github": "https://github.com/venn-apps/VennWL-iOS",
+      "linkedin": "https://linkedin.com/company/vennapps"
     }
   }
-}
+} 
