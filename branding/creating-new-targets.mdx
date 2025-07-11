@@ -1,0 +1,435 @@
+# Creating New Targets
+
+Creating a new target for a brand involves several steps across multiple systems. This guide covers the standard process using the Venn CLI tool, with manual fallback options.
+
+## Prerequisites
+
+- Access to Apple Developer Portal
+- Access to Firebase Console
+- Access to App Store Connect
+- Access to CircleCI
+- Access to Fastlane configuration
+- Access to StoreEditor (Venn's internal CMS)
+- Venn CLI tool installed and configured
+
+## Standard Process: Using Venn CLI
+
+The Venn CLI tool (`venn-cli`) automates most of the target creation process. This is the **recommended approach** for creating new targets.
+
+### Installation and Setup
+
+1. **Install Venn CLI**
+   ```bash
+   git clone git@github.com:venn-apps/venn-cli.git
+   cd venn-cli
+   chmod +x setup.sh && source setup.sh
+   venn install-dep
+   ```
+
+2. **Configure Directory Aliases**
+   ```bash
+   venn edit-aliases
+   # Set up paths for: ios, api, cli
+   ```
+
+### Creating a New Target
+
+Run the automated target creation process:
+
+```bash
+venn create-ios-target
+```
+
+The CLI will guide you through the following steps:
+
+1. **Client Details** - Enter brand name and bundle ID
+2. **Apple Developer Setup** - Create app identifiers and APN keys
+3. **Client Configuration** - Add to Project.swift
+4. **Target Resources** - Set up assets, fonts, and configuration
+5. **Firebase Project** - Create and configure Firebase project
+6. **App Store Connect** - Set up app in App Store Connect
+7. **Tuist Configuration** - Generate .xcconfig file
+8. **Fastlane Configuration** - Update build configuration
+9. **CircleCI Configuration** - Add to CI/CD pipeline
+10. **StoreEditor Setup** - Configure client settings
+11. **App Signing** - Set up code signing
+12. **Metadata Upload** - Upload privacy and app metadata
+13. **App Generation** - Generate the final app
+
+### CLI Process Details
+
+#### Step 1: Client Details
+- **Brand Name**: Full name of the brand (e.g., "Example Brand")
+- **Bundle ID**: Defaults to `com.vennapps.[brandname]` but can be customized
+- **Generated Names**:
+  - Kebab case: `example-brand`
+  - Lower case: `examplebrand`
+  - Formatted: `example-brand`
+
+#### Step 2: Apple Developer Portal
+The CLI will redirect you to Apple Developer Portal to:
+- Create app identifier with capabilities (Apple Pay, iCloud, Push Notifications)
+- Create NotificationServiceExtension identifier
+- Create APN (Apple Push Notification) key
+
+#### Step 3: Project.swift Update
+The CLI automatically adds the new client to `Project.swift`:
+```swift
+ClientConfiguration(
+    name: "Example Brand", 
+    bundleId: "com.vennapps.examplebrand", 
+    infoPlist: "Info.plist", 
+    clientSpecificFolderName: "Example Brand", 
+    schemeName: "Example Brand", 
+    entitlementsName: "Example Brand", 
+    pushExtension: true
+)
+```
+
+#### Step 4: Target Resources
+Creates the complete target resources structure:
+```
+Target Resources/Example Brand/
+├── Example Brand.entitlements
+├── Example Brand.xcassets/
+│   ├── AppIcon.appiconset/
+│   └── splash.imageset/
+├── Plists/
+│   └── Info.plist
+├── Fonts/
+└── Lottie/
+```
+
+**Custom Fonts**: The CLI supports adding custom fonts:
+- Select `.ttf` files through file picker
+- Automatically adds to `Info.plist` UIAppFonts array
+- Falls back to default fonts if no custom fonts selected
+
+**Assets**: 
+- App icon (minimum 1024x1024 PNG)
+- Splash screen asset
+- Automatically generates all required icon sizes
+
+#### Step 5: Firebase Setup
+The CLI automates Firebase project creation:
+- Project ID: `vennapps-examplebrand`
+- Enables Storage and Google Analytics
+- Uses Venn as Google Analytics account
+- Upgrades to "Pay as you go" plan
+- Adds iOS app with correct bundle ID
+- Configures Cloud Messaging with APN token
+
+#### Step 6-9: Configuration Files
+- **Tuist Config**: Creates `TuistConfig/Example Brand.xcconfig`
+- **Fastlane**: Updates `fastlane/config.yaml`
+- **CircleCI**: Updates `.circleci/config.yml`
+
+#### Step 10: StoreEditor Setup
+Redirects to StoreEditor UAT to configure:
+- Store key and basic information
+- Payment methods
+- Shipping and tax rules
+- Analytics and tracking
+
+### Common CLI Issues and Solutions
+
+#### Project.swift Not Updated Properly
+**Issue**: The CLI sometimes fails to properly update Project.swift
+
+**Solution**:
+1. **Check the file manually**:
+   ```bash
+   grep -n "ClientConfiguration(name:" Project.swift
+   ```
+
+2. **Manual fix if needed**:
+   ```bash
+   # Find the last ClientConfiguration line
+   last_line=$(grep -n "ClientConfiguration(name:" Project.swift | tail -1 | cut -d: -f1)
+   
+   # Add your configuration after the last one
+   # Ensure proper comma placement and formatting
+   ```
+
+3. **Validate syntax**:
+   ```bash
+   swift -frontend -parse Project.swift
+   ```
+
+#### Firebase Project Creation Fails
+**Issue**: Firebase CLI automation fails
+
+**Solution**:
+1. **Manual Firebase setup**:
+   - Go to [Firebase Console](https://console.firebase.google.com/)
+   - Create project manually: `vennapps-[brandname]`
+   - Enable required services
+   - Download `GoogleService-Info.plist`
+   - Place in target resources directory
+
+2. **Verify project ID format**:
+   - Must be lowercase with hyphens
+   - No spaces or special characters
+
+#### Bundle ID Conflicts
+**Issue**: Bundle ID already exists
+
+**Solution**:
+1. **Check existing targets**:
+   ```bash
+   grep -r "PRODUCT_BUNDLE_IDENTIFIER" TuistConfig/
+   ```
+
+2. **Use unique bundle ID**:
+   - Consider client-specific domain
+   - Add version suffix if needed
+
+## Manual Process (Fallback)
+
+If the CLI tool doesn't work or you need to create a target manually, follow the detailed manual process below.
+
+### Manual Target Creation Steps
+
+#### 1. Apple Developer Portal Setup
+
+1. **Create App Identifier**
+   - Go to [Apple Developer Portal](https://developer.apple.com/account/resources/identifiers/list)
+   - Create a new App ID with your bundle identifier
+   - Enable capabilities: Apple Pay, iCloud, Push Notifications
+   - Create NotificationServiceExtension identifier if needed
+
+2. **Create APN Key**
+   - Create an Apple Push Notification key for the client
+   - Note the key ID and team ID for later use
+
+#### 2. Target Resources Setup
+
+Create the target-specific resources in `Target Resources/[Brand Name]/`:
+
+```bash
+mkdir -p "Target Resources/[Brand Name]"
+mkdir -p "Target Resources/[Brand Name]/Plists"
+mkdir -p "Target Resources/[Brand Name]/Fonts"
+mkdir -p "Target Resources/[Brand Name]/Lottie"
+```
+
+**Required Files:**
+- `[Brand Name].entitlements` - App entitlements
+- `[Brand Name].xcassets` - App icons and assets
+- `Plists/Info.plist` - App configuration
+- `Fonts/` - Custom fonts (if any)
+- `Lottie/` - Animation files (if any)
+
+#### 3. Tuist Configuration
+
+Create a new `.xcconfig` file in `TuistConfig/`:
+
+```bash
+# TuistConfig/[Brand Name].xcconfig
+INFOPLIST_FILE=Target Resources/[Brand Name]/Plists/Info.plist
+CODE_SIGN_ENTITLEMENTS=Target Resources/[Brand Name]/[Brand Name].entitlements
+PRODUCT_BUNDLE_IDENTIFIER=com.vennapps.[brandname]
+PROVISIONING_PROFILE_SPECIFIER[config=Debug]=match AdHoc com.vennapps.[brandname]
+PROVISIONING_PROFILE_SPECIFIER[config=Release]=match AppStore com.vennapps.[brandname]
+RELEASE_PUSH_PROFILE=match AppStore com.vennapps.[brandname].NotificationServiceExtension
+DEBUG_PUSH_PROFILE=match AdHoc com.vennapps.[brandname].NotificationServiceExtension
+DEVELOPMENT_TEAM=HDQXLLD553
+```
+
+#### 4. Project.swift Update
+
+Add the new client configuration to `Project.swift`:
+
+```swift
+ClientConfiguration(
+    name: "[Brand Name]", 
+    bundleId: "com.vennapps.[brandname]", 
+    infoPlist: "Info.plist", 
+    clientSpecificFolderName: "[Brand Name]", 
+    schemeName: "[Brand Name]", 
+    entitlementsName: "[Brand Name]", 
+    pushExtension: true
+)
+```
+
+#### 5. Firebase Setup
+
+1. **Create Firebase Project**
+   - Go to [Firebase Console](https://console.firebase.google.com/)
+   - Create new project: `vennapps-[brandname]`
+   - Enable Storage and Google Analytics
+   - Use Venn as the Google Analytics account
+   - Upgrade to "Pay as you go" plan
+
+2. **Add iOS App**
+   - Add iOS app to the project
+   - Use bundle ID: `com.vennapps.[brandname]`
+   - Download `GoogleService-Info.plist`
+   - Place in `Target Resources/[Brand Name]/`
+
+3. **Configure Cloud Messaging**
+   - Add APN token (Venn team ID: HDQXLLD553)
+   - Configure push notifications
+
+#### 6. App Store Connect Setup
+
+1. **Create App**
+   - Go to [App Store Connect](https://appstoreconnect.apple.com/apps)
+   - Create new app with bundle ID
+   - Set up basic app information
+
+2. **Configure App Information**
+   - Add app description, keywords, screenshots
+   - Set up privacy policy and support URL
+   - Configure app categories
+
+#### 7. Fastlane Configuration
+
+Update `fastlane/config.yaml` to include the new target:
+
+```yaml
+targets:
+  [brandname]:
+    bundle_id: com.vennapps.[brandname]
+    app_store_connect_app_id: [app_id]
+    firebase_project_id: vennapps-[brandname]
+    # ... other configuration
+```
+
+#### 8. CircleCI Configuration
+
+Update `.circleci/config.yml` to include the new target in the build matrix.
+
+#### 9. StoreEditor Setup
+
+1. **Access StoreEditor**
+   - Go to [StoreEditor UAT](https://se.vennapps.com/editor/[store_key]/settings)
+   - Navigate to Settings page for the new client
+
+2. **Configure Client Settings**
+   - Set up store key and basic information
+   - Configure payment methods
+   - Set up shipping and tax rules
+   - Configure analytics and tracking
+
+#### 10. Generate and Test
+
+```bash
+# Generate the new target
+tuist generate [Brand Name]
+
+# Build and test
+xcodebuild -scheme "[Brand Name]" -configuration Debug
+```
+
+## Firebase Account Setup
+
+### Detailed Firebase Setup Process
+
+1. **Project Creation**
+   - Go to [Firebase Console](https://console.firebase.google.com/)
+   - Click "Create a project"
+   - Enter project name: `vennapps-[brandname]`
+   - Enable Google Analytics (use Venn account)
+   - Choose analytics account: Venn Apps
+
+2. **Project Configuration**
+   - **Storage**: Enable Cloud Storage
+   - **Analytics**: Enable Google Analytics
+   - **Plan**: Upgrade to "Pay as you go" (Blaze plan)
+   - **Billing**: Set up billing account
+
+3. **iOS App Setup**
+   - Click "Add app" → iOS
+   - Bundle ID: `com.vennapps.[brandname]`
+   - App nickname: `[Brand Name]`
+   - App Store ID: (leave blank initially)
+   - Download `GoogleService-Info.plist`
+
+4. **Cloud Messaging Setup**
+   - Go to Project Settings → Cloud Messaging
+   - Add iOS app configuration
+   - Upload APN authentication key
+   - Team ID: `HDQXLLD553`
+   - Key ID: (from Apple Developer Portal)
+   - Key file: (APN key file)
+
+5. **Service Configuration**
+   - **Authentication**: Enable Email/Password, Google, Apple
+   - **Firestore**: Enable Firestore Database
+   - **Storage**: Configure storage rules
+   - **Functions**: Deploy required functions
+
+## StoreEditor Setup
+
+### What is StoreEditor?
+
+StoreEditor is Venn's internal Content Management System (CMS) that allows clients to:
+- Manage their store content and products
+- Configure payment methods and shipping
+- Set up analytics and tracking
+- Manage user accounts and permissions
+
+### StoreEditor Configuration Steps
+
+1. **Access StoreEditor**
+   - URL: `https://se.vennapps.com/editor/[store_key]/settings`
+   - Login with Venn credentials
+   - Navigate to the new client's store
+
+2. **Basic Settings**
+   - **Store Information**: Name, description, contact details
+   - **Store Key**: Unique identifier for the store
+   - **Domain**: Custom domain (if applicable)
+   - **Currency**: Primary currency for transactions
+
+3. **Payment Configuration**
+   - **Payment Methods**: Enable/disable payment options
+   - **Stripe**: Configure Stripe account and keys
+   - **Apple Pay**: Set up Apple Pay merchant ID
+   - **PayPal**: Configure PayPal integration
+
+4. **Shipping Setup**
+   - **Shipping Zones**: Define shipping regions
+   - **Shipping Methods**: Configure shipping options
+   - **Tax Rules**: Set up tax calculations
+   - **Inventory**: Configure inventory management
+
+5. **Analytics and Tracking**
+   - **Google Analytics**: Set up GA4 tracking
+   - **Facebook Pixel**: Configure Facebook tracking
+   - **Custom Events**: Set up custom analytics events
+   - **Conversion Tracking**: Configure conversion goals
+
+6. **User Management**
+   - **Roles**: Define user roles and permissions
+   - **Access Control**: Set up access restrictions
+   - **API Keys**: Generate API keys for integrations
+
+## Best Practices
+
+1. **Naming Conventions**
+   - Use consistent naming across all systems
+   - Follow the established pattern for your organization
+   - Document any deviations
+
+2. **Testing**
+   - Test the complete flow before production
+   - Verify all integrations work correctly
+   - Test push notifications and analytics
+
+3. **Documentation**
+   - Update internal documentation
+   - Create runbooks for common issues
+   - Document any custom configurations
+
+4. **Security**
+   - Use secure storage for sensitive keys
+   - Follow least privilege principle
+   - Regularly rotate API keys and certificates
+
+5. **CLI Usage**
+   - Always use the CLI for new target creation
+   - Keep the CLI tool updated
+   - Report issues to the CLI maintainers
+   - Document any workarounds needed 

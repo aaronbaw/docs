@@ -24,6 +24,23 @@ Target Resources/
 - **Other Configs:** Any files unique to a brand
 
 ## Adding New Resources
+
+### Using Venn CLI (Recommended)
+The Venn CLI tool automatically creates and configures target resources when creating a new target:
+
+```bash
+venn create-ios-target
+```
+
+The CLI will:
+- Create the brand folder structure
+- Set up entitlements and assets
+- Configure fonts and app icons
+- Generate all required configuration files
+
+### Manual Process
+If you need to create resources manually:
+
 1. Create a new folder for the brand under `Target Resources/`.
 2. Add the required files (entitlements, images, etc.).
 3. Reference these resources in the brand’s `.xcconfig` and Tuist setup.
@@ -32,5 +49,6 @@ Target Resources/
 - Keep brand folders isolated—never share files between brands.
 - Use clear, consistent naming (e.g., `BrandName.entitlements`).
 - Document any special requirements for a brand.
+- Always use the CLI tool for new target creation when possible.
 
-> **See also:** [Adding a New Brand](../getting-started/adding-a-brand) 
+> **See also:** [Creating New Targets](./creating-new-targets) | [Adding a New Brand](../getting-started/adding-a-brand) 

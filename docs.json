@@ -3,8 +3,8 @@
   "theme": "mint",
   "name": "VennWL-iOS Documentation",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
+    "primary": "#1a1a1a",
+    "light": "#1a1a1a",
     "dark": "#15803D"
   },
   "favicon": "/favicon.svg",
@@ -76,6 +76,7 @@
           {
             "group": "Branding",
             "pages": [
+              "branding/creating-new-targets",
               "branding/target-resources",
               "branding/tuist-config",
               "branding/fastlane-circleci"
@@ -156,8 +157,8 @@
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.vennapps.com"
+      "label": "Store Editor",
+      "href": "https://se.vennapps.com"
     }
   },
   "footer": {
