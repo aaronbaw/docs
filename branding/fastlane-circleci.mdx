@@ -1,0 +1,47 @@
+---
+title: Fastlane & CircleCI
+---
+
+# Fastlane & CircleCI
+
+Automation is essential for managing builds and deployments across many brands. VennWL-iOS uses Fastlane and CircleCI to automate these processes.
+
+## Fastlane
+- Handles building, signing, versioning, and deployment for each brand.
+- Uses parameterized lanes (e.g., `deploy name:brandA`) to target specific brands.
+
+### Example Fastlane Command
+```
+bundle exec fastlane deploy name:brandA
+```
+
+## CircleCI
+- Defines jobs and workflows for each brand in `.circleci/config.yml`.
+- Uses approval steps and per-brand jobs for QA and release control.
+
+### Example CircleCI Workflow (YAML)
+```yaml
+jobs:
+  - build-and-test
+  - apple-brandA:
+      type: approval
+      requires:
+        - build-and-test
+  - create-signed-ipa:
+      fastlane-name: brandA
+      tuist-name: BrandA
+      requires:
+        - apple-brandA
+```
+
+## Adding a New Brand to CI
+1. Add a new job and workflow step in CircleCI config.
+2. Add a Fastlane lane or parameter for the brand.
+3. Test the build and deployment pipeline.
+
+## Best Practices
+- Keep CI config DRY—use parameters and templates where possible.
+- Notify the team of build status via Slack or email.
+- Regularly review and clean up old brand configs.
+
+> **See also:** [CI/CD & Automation](../core/ci-cd-automation) 

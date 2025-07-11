@@ -1,0 +1,31 @@
+---
+title: Analytics & Tracking
+---
+
+# Analytics & Tracking
+
+Analytics are critical for understanding user behavior and improving the app. VennWL-iOS supports multiple analytics providers and custom event tracking.
+
+## What is Tracked?
+- Screen views
+- Button taps
+- Purchases and conversions
+- Custom events (brand-specific)
+
+## Example: Tracking an Event
+```swift
+AnalyticsHelper.shared.trackEvent(.loadedScreen(screen: .home, className: "ModularHomeViewController"))
+```
+
+## Adding a New Event
+1. Define the event in the analytics helper or service.
+2. Call the tracking method at the appropriate place in the code.
+
+## Per-brand Analytics
+- Each brand can have its own analytics configuration (e.g., Google Analytics, Firebase, Mixpanel).
+- Configure providers in the brand’s config or at runtime.
+
+## Best Practices
+- Track only what is necessary for product improvement.
+- Respect user privacy and opt-out preferences.
+- Document all tracked events for future reference. 

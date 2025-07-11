@@ -1,0 +1,41 @@
+---
+title: Debugging & Troubleshooting
+---
+
+# Debugging & Troubleshooting
+
+Debugging a modular, white-label app can present unique challenges. Here’s how to efficiently diagnose and resolve issues in VennWL-iOS.
+
+## Common Issues
+- Build failures due to missing brand resources or configs
+- Incorrect module rendering due to server JSON errors
+- Authentication or API failures
+
+## Using Xcode’s Debugger
+- Set breakpoints in ViewModels, services, or view controllers
+- Use the Variables View to inspect state
+- Step through code to trace data flow from server to UI
+
+## Logging
+- Use `print()` for quick checks
+- Use a logging framework (e.g., OSLog) for structured logs
+- Log server responses and errors for later analysis
+
+## Troubleshooting Scenarios
+### 1. Module Not Rendering
+- Check the server JSON for typos or missing attributes
+- Ensure the module is registered in `supportedModules`
+- Look for decoding errors in the console
+
+### 2. Brand Build Fails
+- Verify all required resources exist in `Target Resources/<BrandName>/`
+- Check `.xcconfig` for correct paths and settings
+
+### 3. API Call Fails
+- Inspect network requests in Xcode’s Network Debugger
+- Check for expired tokens or incorrect endpoints
+
+## Tips
+- Always test on a clean build and device
+- Use Xcode’s “Clean Build Folder” if you see strange issues
+- Keep logs and error messages for team troubleshooting 

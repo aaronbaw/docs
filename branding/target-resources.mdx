@@ -1,0 +1,36 @@
+---
+title: Target Resources
+---
+
+# Target Resources
+
+Target Resources are where all brand-specific assets, entitlements, and configuration files live. This structure allows each brand to have its own look, feel, and permissions while sharing the same core codebase.
+
+## Directory Structure
+```
+Target Resources/
+  ├── BrandA/
+  │    ├── BrandA.entitlements
+  │    └── ...
+  ├── BrandB/
+  │    ├── BrandB.entitlements
+  │    └── ...
+  └── ...
+```
+
+## What Goes Here?
+- **Entitlements:** Per-brand `.entitlements` files
+- **Assets:** Brand-specific images, icons, etc.
+- **Other Configs:** Any files unique to a brand
+
+## Adding New Resources
+1. Create a new folder for the brand under `Target Resources/`.
+2. Add the required files (entitlements, images, etc.).
+3. Reference these resources in the brand’s `.xcconfig` and Tuist setup.
+
+## Best Practices
+- Keep brand folders isolated—never share files between brands.
+- Use clear, consistent naming (e.g., `BrandName.entitlements`).
+- Document any special requirements for a brand.
+
+> **See also:** [Adding a New Brand](../getting-started/adding-a-brand) 

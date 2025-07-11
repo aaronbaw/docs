@@ -1,0 +1,45 @@
+---
+title: Error Handling
+---
+
+# Error Handling
+
+Robust error handling is essential for a good user experience and maintainable codebase.
+
+## Where Errors Occur
+- **Networking:** API failures, timeouts, invalid responses
+- **UI:** Invalid user input, missing data
+- **Business Logic:** Inconsistent state, failed operations
+
+## Best Practices
+- Use Swift’s `Result` type for async operations
+- Show user-friendly error messages
+- Log errors for debugging
+- Use enums for error types
+
+## Example
+```swift
+enum ProductError: Error {
+    case notFound
+    case networkError(Error)
+}
+
+class ProductService {
+    func fetchProduct(id: String, completion: @escaping (Result<Product, ProductError>) -> Void) {
+        // ...
+        // completion(.failure(.notFound))
+    }
+}
+
+// Usage in ViewModel
+service.fetchProduct(id: "123") { result in
+    switch result {
+    case .success(let product):
+        // Update UI
+    case .failure(let error):
+        // Show error message
+    }
+}
+```
+
+> **Tip:** Always handle errors gracefully and inform the user when appropriate. 

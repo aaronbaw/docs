@@ -1,0 +1,31 @@
+---
+title: Testing
+---
+
+# Testing
+
+Testing ensures the reliability and quality of VennWL-iOS across all brands and features.
+
+## Types of Tests
+- **Unit Tests:** Test individual functions, models, and view models
+- **UI Tests:** Simulate user interactions and verify UI behavior
+- **Integration Tests:** Test end-to-end flows (e.g., login, checkout)
+
+## Running Tests
+- In Xcode: Select the test target and press ⌘U
+- In CI: Fastlane and CircleCI run tests automatically on each push
+
+## Example: Unit Test
+```swift
+test func testProductViewModelDisplayName() {
+    let product = Product(id: "1", name: "Test")
+    let viewModel = ProductViewModel(product: product)
+    XCTAssertEqual(viewModel.displayName, "TEST")
+}
+```
+
+## Best Practices
+- Keep tests isolated and fast
+- Mock network and service dependencies
+- Write tests for new modules and features
+- Review test coverage regularly 

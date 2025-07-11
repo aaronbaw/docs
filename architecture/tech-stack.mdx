@@ -1,0 +1,34 @@
+---
+title: Tech Stack
+---
+
+# Tech Stack
+
+VennWL-iOS leverages a modern, robust toolchain to support rapid development, automation, and scalability.
+
+## Languages & Frameworks
+- **Swift:** Primary language for all app logic and UI.
+- **UIKit & SwiftUI:** UIKit is the main UI framework, with some SwiftUI adoption for new features.
+- **MVVM:** Architectural pattern for separation of concerns.
+
+## Project & Build Tools
+- **Tuist:** Generates Xcode projects, manages modularization, and simplifies multi-brand builds.
+- **Xcode:** Apple’s IDE for iOS development.
+- **.xcconfig:** Used for per-brand build configuration.
+
+## Automation & CI/CD
+- **Fastlane:** Automates building, signing, versioning, and deployment.
+- **CircleCI:** Runs tests, builds, and deployments for all brands.
+- **Slack:** Receives build and deployment notifications.
+
+## Other Tools
+- **Homebrew:** Installs system dependencies (Tuist, Fastlane, etc.).
+- **Bundler:** Manages Ruby dependencies for Fastlane.
+- **Periphery:** Static analysis for dead code detection.
+
+## Why This Stack?
+- **Scalability:** Easily add new brands and features.
+- **Automation:** CI/CD ensures quality and speeds up releases.
+- **Maintainability:** MVVM and modularization keep code clean and testable.
+
+> **See also:** [CI/CD & Automation](../core/ci-cd-automation) 

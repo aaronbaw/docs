@@ -1,0 +1,34 @@
+---
+title: Server-driven UI
+---
+
+# Server-driven UI
+
+VennWL-iOS uses a server-driven UI approach, allowing layouts and content to be updated without requiring an app release.
+
+## How It Works
+
+- On launch, the app calls the `/info` endpoint to fetch:
+  - Store config
+  - Theme config
+  - Dynamic page layouts (homepages, product pages, etc.)
+- Each page is defined as a list of modules in JSON.
+- The app decodes and renders these modules dynamically.
+
+## Example JSON
+```json
+{
+  "moduleType": "VTextBox",
+  "attributes": {
+    "bodyText": "Welcome!",
+    "fontColor": "#000000"
+  }
+}
+```
+
+## Updating the UI
+- The app caches the config for fast startup.
+- Navigating to the Home tab triggers a background refresh.
+- New modules or layouts can be rolled out server-side.
+
+> **See also:** [Modular Component System](modular-component-system) 

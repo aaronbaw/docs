@@ -1,0 +1,39 @@
+---
+title: Services & Networking
+---
+
+# Services & Networking
+
+All data fetching and business logic in VennWL-iOS is encapsulated in service classes. This keeps networking code out of view controllers and enables easy testing and reuse.
+
+## Structure
+- **API Clients:** Handle HTTP requests and responses.
+- **Services:** Encapsulate business logic, data fetching, and caching.
+- **ViewModels:** Use services to get data and expose it to the UI.
+
+## Example: Product Service
+```swift
+class ProductService {
+    func fetchProduct(id: String, completion: @escaping (Product?) -> Void) {
+        // Networking code here (URLSession, Alamofire, etc.)
+        // Call completion(product) when done
+    }
+}
+
+class ProductViewModel {
+    let service: ProductService
+    var product: Product?
+    init(service: ProductService) { self.service = service }
+    func loadProduct(id: String) {
+        service.fetchProduct(id: id) { [weak self] product in
+            self?.product = product
+            // Update UI
+        }
+    }
+}
+```
+
+## Caching
+Some services cache results in memory or on disk for performance.
+
+> **Tip:** Keep networking code out of view controllers for better testability. 

@@ -1,0 +1,29 @@
+---
+title: Modular Component System
+---
+
+# Modular Component System
+
+The modular component system allows the app’s UI to be dynamically composed from reusable building blocks, called modules. This enables rapid iteration and customization for each brand or page.
+
+## How It Works
+
+- **Server-driven:** The server sends a JSON layout describing which modules to render and their configuration.
+- **Modules:** Each module (e.g., `VTextBox`, `VGallery`) is a Swift class with its own attributes and rendering logic.
+- **Decoding:** The app decodes the JSON into `VLayoutItem` objects, each with a `moduleType` and `attributes`.
+- **Rendering:** View controllers (e.g., `ModularHomeViewController`) render the modules in a collection view.
+
+## Common Modules
+- `VTextBox`: Dynamic text box
+- `VGallery`: Image gallery
+- `VProductInfoBar`: Product info
+- `VSpacer`: Spacing element
+- ...and many more (see [Supported Modules](../modules/supported-modules))
+
+## Extending the System
+To add a new module:
+1. Add a new case to `VLayoutItemModuleType` and `VLayoutItemAttributes`.
+2. Implement the cell/view and attributes struct.
+3. Register the module in the relevant controller.
+
+> **See also:** [Dynamic Modules](../modules/overview) 

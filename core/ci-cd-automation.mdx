@@ -1,0 +1,21 @@
+---
+title: CI/CD & Automation
+---
+
+# CI/CD & Automation
+
+Automation is key to managing a large white-label codebase. VennWL-iOS uses Fastlane and CircleCI to automate building, testing, and deploying each brand.
+
+## Tools Used
+- **Fastlane:** Handles building, signing, versioning, and deployment.
+- **CircleCI:** Orchestrates CI/CD pipelines, including per-brand jobs and approval steps.
+- **Slack:** Notifies the team of build status and deployment results.
+
+## Workflow
+1. Code is pushed to the repository.
+2. CircleCI runs tests and builds for all brands.
+3. Manual approval steps for QA or release.
+4. Fastlane deploys signed IPAs to App Store Connect.
+5. Slack notifications for success/failure.
+
+> **See also:** [Brand Customization](../branding/fastlane-circleci) 

@@ -1,0 +1,20 @@
+---
+title: Adding a New Brand
+---
+
+# Adding a New Brand
+
+To add a new brand to VennWL-iOS:
+
+1. **Add brand resources:**
+   - Place assets and entitlements in `Target Resources/<BrandName>/`.
+2. **Create or update .xcconfig:**
+   - Add a new config in `TuistConfig/<BrandName>.xcconfig`.
+3. **Register the brand in Tuist and Fastlane:**
+   - Update Tuist project settings and Fastlane deployment scripts.
+4. **Update CI/CD:**
+   - Add new jobs/steps in CircleCI for the brand.
+5. **Test the build:**
+   - Generate and run the project for the new brand.
+
+> **Tip:** See [Brand Customization](../branding/target-resources) for more details. 

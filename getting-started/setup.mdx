@@ -1,0 +1,45 @@
+---
+title: Setup & Installation
+---
+
+# Setup & Installation
+
+Follow these steps to set up your development environment:
+
+## 1. Install Xcode
+Download from the Mac App Store or [Apple Developer site](https://developer.apple.com/xcode/).
+
+## 2. Install Homebrew
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+## 3. Install Ruby & Bundler
+```
+brew install ruby
+sudo gem install bundler
+```
+
+## 4. Install Tuist
+```
+brew tap tuist/tuist
+brew install tuist@4.36.0
+```
+
+## 5. Install Fastlane
+```
+brew install fastlane
+```
+
+## 6. Clone the Repository
+```
+git clone <repo-url>
+cd VennWL-iOS
+```
+
+## 7. Install Dependencies
+```
+bundle install
+```
+
+> **Next:** [Running the App](running-the-app) 

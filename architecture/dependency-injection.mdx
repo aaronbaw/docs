@@ -1,0 +1,38 @@
+---
+title: Dependency Injection
+---
+
+# Dependency Injection
+
+Dependency injection (DI) is used throughout VennWL-iOS to improve testability, flexibility, and modularity.
+
+## What is Dependency Injection?
+DI is a pattern where dependencies (services, managers, etc.) are provided to a class rather than hardcoded inside it.
+
+## Approaches Used
+- **Constructor Injection:** Dependencies are passed in via initializers.
+- **Property Injection:** Dependencies are set as properties after initialization.
+- **Service Locator:** A shared registry provides dependencies on demand (used sparingly).
+
+## Example: Constructor Injection
+```swift
+class AnalyticsService {
+    func track(event: String) { /* ... */ }
+}
+
+class ProductViewModel {
+    let analytics: AnalyticsService
+    init(analytics: AnalyticsService) {
+        self.analytics = analytics
+    }
+}
+
+// Usage
+let analytics = AnalyticsService()
+let viewModel = ProductViewModel(analytics: analytics)
+```
+
+## Why Use DI?
+- **Testability:** Easily inject mocks for unit tests.
+- **Flexibility:** Swap implementations without changing consumers.
+- **Modularity:** Decouples components for easier maintenance. 

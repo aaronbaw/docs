@@ -1,0 +1,29 @@
+---
+title: Notification Handling
+---
+
+# Notification Handling
+
+VennWL-iOS supports rich push notifications, including images and custom actions.
+
+## How Notifications Work
+- The app registers for push notifications with APNs.
+- Notifications are received and handled by the app delegate.
+- For rich content, the NotificationServiceExtension processes and customizes the notification before display.
+
+## Example: Customizing Notification Content
+```swift
+// In NotificationService.swift
+override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
+    // Download image, modify content, etc.
+    contentHandler(modifiedContent)
+}
+```
+
+## Custom Actions
+- Add actions (e.g., "View", "Dismiss") to notifications for better engagement.
+
+## Best Practices
+- Always test notifications on real devices.
+- Handle edge cases (e.g., missing images, expired content).
+- Respect user privacy and notification settings. 

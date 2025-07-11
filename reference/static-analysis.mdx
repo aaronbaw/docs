@@ -1,0 +1,26 @@
+---
+title: Static Analysis
+---
+
+# Static Analysis
+
+Static analysis tools help maintain code quality and catch issues early in development.
+
+## Tools Used
+- **Periphery:** Detects unused code, functions, and properties
+- **SwiftLint:** (If used) Enforces code style and conventions
+
+## Running Periphery
+- Run the provided script: `./scripts/run_periphery_via_brew.sh`
+- Review the output for unused code and remove as needed
+
+## Example Output
+```
+Unused function: ProductViewModel.unusedHelper()
+Unused property: VTextBoxCell.legacyProperty
+```
+
+## Best Practices
+- Run static analysis before submitting PRs
+- Regularly review and clean up dead code
+- Configure tools to match team style guidelines 

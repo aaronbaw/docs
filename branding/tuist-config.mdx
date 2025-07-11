@@ -1,0 +1,36 @@
+---
+title: Tuist Config & .xcconfig
+---
+
+# Tuist Config & .xcconfig
+
+Each brand in VennWL-iOS has its own build configuration, managed via `.xcconfig` files in the `TuistConfig/` directory.
+
+## What is an .xcconfig?
+`.xcconfig` files are plain text files that define build settings for Xcode projects. They allow you to customize things like bundle IDs, app names, and entitlements per brand.
+
+## Directory Example
+```
+TuistConfig/
+  ├── BrandA.xcconfig
+  ├── BrandB.xcconfig
+  └── ...
+```
+
+## Adding a New Config
+1. Create a new `.xcconfig` file for the brand in `TuistConfig/`.
+2. Set the desired build settings (e.g., `PRODUCT_BUNDLE_IDENTIFIER`, `PRODUCT_NAME`).
+3. Reference the config in Tuist’s project definition.
+
+## Example .xcconfig
+```
+PRODUCT_BUNDLE_IDENTIFIER = com.vennapps.brandA
+PRODUCT_NAME = Brand A
+CODE_SIGN_ENTITLEMENTS = Target Resources/BrandA/BrandA.entitlements
+```
+
+## How Tuist Uses .xcconfig
+- Tuist reads these files to generate the correct Xcode project for each brand.
+- Ensures each build is isolated and correctly configured.
+
+> **See also:** [White-label System](../core/white-label-system) 

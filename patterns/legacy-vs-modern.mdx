@@ -1,0 +1,26 @@
+---
+title: Legacy vs Modern Code
+---
+
+# Legacy vs Modern Code
+
+As the codebase has evolved, some areas use older patterns while others adopt modern best practices.
+
+## Legacy Patterns
+- **Singletons:** Used for global state and services
+- **Direct Instantiation:** View controllers/services created inline
+- **UIKit-only:** All UI in UIKit, little SwiftUI
+
+## Modern Approaches
+- **Dependency Injection:** For services and view models
+- **MVVM:** Clear separation of concerns
+- **SwiftUI:** Used for new features and screens
+- **Modularization:** Code split into reusable modules
+
+## Migration Tips
+- Refactor singletons to DI where possible
+- Move business logic out of view controllers
+- Adopt SwiftUI for new UI
+- Modularize features for reuse
+
+> **See also:** [MVVM Architecture](../architecture/mvvm), [Dependency Injection](../architecture/dependency-injection) 

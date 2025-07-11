@@ -1,0 +1,38 @@
+---
+title: Code Style
+---
+
+# Code Style
+
+Consistent code style makes the codebase easier to read, maintain, and extend—especially in a large, modular project like VennWL-iOS.
+
+## Swift Formatting
+- Use 4 spaces for indentation
+- Prefer explicit types for properties and function returns
+- Use `guard` for early exits
+- Keep lines under 120 characters
+
+## Naming Conventions
+- Classes/Structs: `PascalCase` (e.g., `ProductViewModel`)
+- Variables/Properties: `camelCase` (e.g., `productList`)
+- Constants: `UPPER_SNAKE_CASE` (e.g., `MAX_RETRY_COUNT`)
+- Files: Match the main type (e.g., `ProductService.swift`)
+
+## File Organization
+- Group related files in folders (e.g., `Services/`, `ViewModels/`)
+- One type per file unless tightly coupled
+- Use `// MARK:` to organize code sections
+
+## Best Practices
+- Write documentation comments for public types and methods
+- Avoid force-unwrapping optionals
+- Use dependency injection for testability
+- Keep modules focused and reusable
+
+## Example
+```swift
+// MARK: - Product Service
+class ProductService {
+    func fetchProducts() -> [Product] { /* ... */ }
+}
+``` 

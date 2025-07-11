@@ -1,0 +1,25 @@
+---
+title: FAQ
+---
+
+# FAQ
+
+## How do I add a new brand?
+See [Adding a New Brand](../getting-started/adding-a-brand) for a step-by-step guide.
+
+## Why isn’t my module rendering?
+- Check the server JSON for typos or missing attributes
+- Ensure the module is registered in `supportedModules`
+- Look for decoding errors in the console
+
+## How do I debug authentication issues?
+- Check Keychain for stored tokens
+- Review server responses for error messages
+- Ensure the correct auth provider is configured
+
+## How do I run tests?
+- In Xcode: Select the test target and press ⌘U
+- In CI: Tests run automatically on each push
+
+## Where are localized strings stored?
+In `Resources/<lang>.lproj/Localizable.strings` for each supported language. 

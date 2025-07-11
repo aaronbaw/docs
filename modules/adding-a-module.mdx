@@ -1,0 +1,44 @@
+---
+title: Adding a Module
+---
+
+# Adding a Module
+
+Adding a new module to VennWL-iOS is straightforward and enables new UI features to be delivered server-side.
+
+## Steps to Add a Module
+
+1. **Update the Module Type Enum**
+   - Add a new case to `VLayoutItemModuleType` (e.g., `.VNewModule`).
+   ```swift
+   enum VLayoutItemModuleType: String, Codable, Equatable, CaseIterable {
+       case VNewModule
+       // ...
+   }
+   ```
+2. **Add to Attributes Enum**
+   - Add a new case to `VLayoutItemAttributes` and create a struct for the module’s attributes.
+   ```swift
+   enum VLayoutItemAttributes: VLayoutItemAttributesProtocol {
+       case newModule(VNewModuleAttributes)
+       // ...
+   }
+   struct VNewModuleAttributes: VLayoutItemAttributesProtocol {
+       // Define properties here
+   }
+   ```
+3. **Implement the Cell/View**
+   - Create a new cell/view class (e.g., `VNewModuleCell`).
+   - Implement configuration and rendering logic.
+4. **Register the Module**
+   - Register the cell in the relevant view controller (e.g., `ModularHomeViewController`).
+   - Add the module to the `supportedModules` set.
+5. **Test**
+   - Add the module to a test page via server JSON and verify rendering.
+
+## Best Practices
+- Keep modules focused and reusable.
+- Document attributes and usage.
+- Add unit/UI tests if possible.
+
+> **See also:** [Modular Component System](../core/modular-component-system) 

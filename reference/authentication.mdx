@@ -1,0 +1,35 @@
+---
+title: Authentication
+---
+
+# Authentication
+
+Authentication in VennWL-iOS is designed to be secure, flexible, and extensible for different brands and providers.
+
+## How Login Works
+- Users log in via email/password, social login, or SSO (depending on brand).
+- Credentials are sent to the backend, which returns an auth token (e.g., JWT).
+- The token is stored securely on the device.
+
+## Secure Storage
+- Tokens and sensitive data are stored in the iOS Keychain.
+- Never store tokens in plain UserDefaults.
+
+## Example: Storing a Token
+```swift
+import KeychainAccess
+let keychain = Keychain(service: "com.vennapps.app")
+keychain["authToken"] = token
+```
+
+## Adding a New Auth Provider
+1. Implement the provider’s login flow (OAuth, SSO, etc.).
+2. Store the resulting token in Keychain.
+3. Update the authentication service to handle the new provider.
+
+## Best Practices
+- Always use secure storage for tokens.
+- Handle token refresh and logout securely.
+- Provide clear error messages for failed logins.
+
+> **See also:** [Services & Networking](../patterns/services-networking) 

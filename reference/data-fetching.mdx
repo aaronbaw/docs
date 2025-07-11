@@ -1,0 +1,40 @@
+---
+title: Data Fetching
+---
+
+# Data Fetching
+
+All data in VennWL-iOS is fetched via service classes that communicate with the backend API.
+
+## How Data is Loaded
+- Services use URLSession (or Alamofire) to make HTTP requests.
+- Responses are decoded into Swift models using Codable.
+- ViewModels request data from services and update the UI.
+
+## Example: Fetching Products
+```swift
+class ProductService {
+    func fetchProducts(completion: @escaping ([Product]) -> Void) {
+        // Networking code here
+    }
+}
+```
+
+## Caching
+- Frequently used data may be cached in memory or on disk.
+- Use NSCache or custom caching logic for performance.
+
+## Adding a New Endpoint
+1. Add a method to the relevant service class.
+2. Define the model(s) for the response.
+3. Update ViewModels/UI as needed.
+
+## Example JSON Response
+```json
+[
+  { "id": "1", "name": "Product A" },
+  { "id": "2", "name": "Product B" }
+]
+```
+
+> **See also:** [Services & Networking](../patterns/services-networking) 
